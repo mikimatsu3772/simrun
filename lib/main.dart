@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'ui/home_screen.dart';
+import 'ui/pixel/gb_palette.dart';
 
 void main() {
   runApp(const ProviderScope(child: SimrunApp()));
@@ -14,13 +15,7 @@ class SimrunApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SIMRUN',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2E8B57),
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-      ),
+      theme: gbTheme(),
       home: const HomeScreen(),
     );
   }

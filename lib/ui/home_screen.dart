@@ -7,6 +7,8 @@ import '../domain/runner.dart';
 import '../domain/stats.dart';
 import 'debug_panel.dart';
 import 'log_screen.dart';
+import 'pixel/gb_palette.dart';
+import 'pixel/runner_sprite.dart';
 import 'training_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -94,17 +96,32 @@ class _RunnerCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(runner.name,
-                    style: Theme.of(context).textTheme.headlineSmall),
-                const SizedBox(width: 8),
-                Chip(label: Text('第${runner.generation}世代')),
-              ],
+            GbScreen(
+              child: Row(
+                children: [
+                  const RunnerSprite(size: 96),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(runner.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(color: Gb.darkest)),
+                        Text('第${runner.generation}世代',
+                            style: const TextStyle(color: Gb.dark)),
+                        Text(
+                            '${runner.type.label}\n得意: ${runner.aptitude.label}(${runner.aptitude.range})',
+                            style:
+                                const TextStyle(color: Gb.dark, fontSize: 12)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 4),
-            Text('${runner.type.label} / 得意: ${runner.aptitude.label}'
-                '(${runner.aptitude.range})'),
             const SizedBox(height: 12),
             for (final stat in StatType.values)
               Padding(
